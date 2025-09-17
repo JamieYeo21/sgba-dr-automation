@@ -215,7 +215,7 @@ def Developer_section_writer(Developer_section_dict, BSF_developer_transfers, De
     DR.add_paragraph(text, style = 'Normal')
 
     # Paragraph
-    text = f'As at {cutoff}, {Developer_number_of + 1} developers have signed the developer remediation contract, although two developers who merged are reported as one in this release. There are {Developer_responsibility_total} buildings covered by the developer remediation contract. Of these, {Developer_life_critical_total} have been identified as having life-critical fire safety defects that developers are obligated to remediate or pay to remediate – {Developer_life_critical_total_line} since the {last_month} data release.'
+    text = f'As at {cutoff}, {Developer_number_of} developers have signed the developer remediation contract. There are {Developer_responsibility_total} buildings covered by the developer remediation contract. Of these, {Developer_life_critical_total} have been identified as having life-critical fire safety defects that developers are obligated to remediate or pay to remediate – {Developer_life_critical_total_line} since the {last_month} data release.'
     DR.add_paragraph(text, style = 'Normal')
 
     # Paragraph
@@ -348,7 +348,7 @@ def Developer_section_writer(Developer_section_dict, BSF_developer_transfers, De
     DR.add_paragraph(text, style = 'Normal')
 
     # Paragraph
-    text = f'Buildings that are being remediated in the BSF or ACM programme, but are also reported to have other non-EWS life-critical fire safety defects by the developer will be included in these statistics. Of these {Developer_self_reported_total} buildings being directly remediated by the developer:'
+    text = f'Buildings that are being remediated in the BSF, ACM or CSS programme, but are also reported to have other non-EWS life-critical fire safety defects by the developer will be included in these statistics. Of these {Developer_self_reported_total} buildings being directly remediated by the developer:'
     DR.add_paragraph(text, style = 'Normal')
 
     # Bullet point
