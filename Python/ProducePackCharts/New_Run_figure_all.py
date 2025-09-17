@@ -64,19 +64,14 @@ home_dir = os.path.expanduser("~")
 
 # Build the path to the graph output folder
 partial_output_path = os.path.join(home_dir, "GitHub", "sgba-DR-automation", "DR_outputs", "DR_graphs")
-print(partial_output_path)
 
 # Build the path to the MI tables
 MI_folder_path = os.path.join(
-    home_dir,
-    "GitHub",
-    "sgba-DR-automation",
-    "Excel_inputs",
-    "[PUT MI TABLES HERE]"
+    home_dir,  "GitHub", "sgba-DR-automation", "Excel_inputs","[PUT MI TABLES HERE]"
 )
 
 
-# Ensure the directory exists
+# Ensure the directories exist
 os.makedirs(partial_output_path, exist_ok=True)
 os.makedirs(MI_folder_path, exist_ok=True)
 
