@@ -9,27 +9,27 @@ import pandas as pd
 import sys
 import os
 
-# Add the adjacent folder to sys.path
-folder_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'Utility'))
-sys.path.append(folder_path)
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate to the Utility folder relative to the script
+utility_path = os.path.join(script_dir, 'Utility')
+# Add it to sys.path so that python can import from it
+sys.path.append(utility_path)
 
 # Now you can import your functions
 from Utility.functions import format_percentage, chop_df, get_excel_path
 from Utility.dates import sort_dates
 
-def CSS_retrieve_data(dates_variables):
+def CSS_retrieve_data(paths_variables):
     print('Handling CSS Data')
     # Accessing the folder which stores the MI tables
-    folder_path = 'Q:\\BSP\\Automation\\DR Automation\\Excel_inputs\\[PUT MI TABLES HERE]'
-    MI_tables_path = get_excel_path(folder_path)
+    MI_tables_path = paths_variables['MI_tables_path']
 
     # Accessing the folder which stores last month's MI tables
-    folder_path = 'Q:\\BSP\\Automation\\DR Automation\\Excel_inputs\\[PUT MI TABLES HERE]\\[LAST MONTHS MI TABLES]'
-    old_MI_tables_path = get_excel_path(folder_path)
+    previous_tables_path = paths_variables['previous_tables_path']
 
     # Accessing the folder which stores the additional stats
-    folder_path = 'Q:\\BSP\Automation\\DR Automation\\Excel_inputs\\[PUT ADDITIONAL DR STATS HERE]'
-    additional_path = get_excel_path(folder_path)
+    additional_tables_path = paths_variables['additional_tables_path']  
 
     # Accessing CSS_1 and transforming CSS_1a
     CSS_1 = pd.read_excel(MI_tables_path, sheet_name='CSS_1')
@@ -73,7 +73,7 @@ def CSS_retrieve_data(dates_variables):
     CSS_5_current['Total'] = CSS_5_current.loc[1, 'Private'] + CSS_5_current.loc[1, 'Social']
     
     # Accessing and transforming CSS_5 (last months')
-    CSS_5_previous = pd.read_excel(old_MI_tables_path, sheet_name= 'CSS_5')
+    CSS_5_previous = pd.read_excel(previous_tables_path, sheet_name= 'CSS_5')
     CSS_5_previous = chop_df(CSS_5_previous, 5, 3)
     CSS_5_previous = CSS_5_previous.rename(columns={CSS_5_previous.columns[1]: 'Private', CSS_5_previous.columns[3]: 'Social'})
     CSS_5_previous['Total'] = CSS_5_previous.loc[1, 'Private'] + CSS_5_previous.loc[1, 'Social']
@@ -90,7 +90,7 @@ def CSS_retrieve_data(dates_variables):
     CSS_6.at[3, 'Cumulative Change'] = CSS_6.at[3, 'Change']
 
     # Accessing and transforming CSS_misc
-    CSS_misc = pd.read_excel(additional_path, sheet_name='CSS_misc')
+    CSS_misc = pd.read_excel(additional_tables_path, sheet_name='CSS_misc')
     CSS_misc['Change'] = CSS_misc['Current Month'] - CSS_misc['Last Month']
 
     # Dictionary for transporting dataframes to the next script

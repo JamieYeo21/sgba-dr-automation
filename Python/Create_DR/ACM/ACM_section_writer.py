@@ -23,7 +23,10 @@ from Utility.dates import sort_dates
 import Utility.docx_svg_patch
 
 # ACM section writer
-def ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, dates_variables, DR):
+def ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, dates_variables, paths_variables, DR):
+    
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
+
     cutoff = dates_variables['cutoff']
     last_month = dates_variables['last_month']
     month = dates_variables['month']
@@ -82,7 +85,7 @@ def ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, 
     ACM_enforcement_not_enforced_no_forecast_word = ACM_section_dict['ACM_enforcement_not_enforced_no_forecast_word']
 
     ACM_quarter_progress = ACM_section_dict['ACM_quarter_progress']
-
+  
     ACM_completed_dwellings_low = ACM_section_dict['ACM_completed_dwellings_low']
     ACM_completed_dwellings_high = ACM_section_dict['ACM_completed_dwellings_high']
     
@@ -105,7 +108,7 @@ def ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, 
     
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Table caption
@@ -263,7 +266,7 @@ def ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, 
     run.bold = True
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     return figure_count, table_count

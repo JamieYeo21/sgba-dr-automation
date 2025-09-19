@@ -23,11 +23,14 @@ from Utility.functions import Change_line_in_DR, format_percentage, create_table
 from Utility.dates import sort_dates
 import Utility.docx_svg_patch
 
-def BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, dates_variables, DR):
+def BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, dates_variables, paths_variables, DR):
+    
     # Unpacking date variables
     cutoff = dates_variables['cutoff']
     last_month = dates_variables['last_month']
     last_year_month = dates_variables['last_year_month']
+    
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
 
     BSF_remediation_table = BSF_tables['BSF_remediation_table']
 
@@ -86,7 +89,7 @@ def BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, 
     
 
     # Figure 
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Table caption
@@ -183,7 +186,7 @@ def BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, 
     
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17), height=Cm(15))
+    DR.add_picture(figure_path, width=Cm(17), height=Cm(15))
     figure_count += 1
 
     # Paragraph
@@ -212,7 +215,7 @@ def BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, 
     
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17), height=Cm(8))
+    DR.add_picture(figure_path, width=Cm(17), height=Cm(8))
     figure_count += 1
     
     return figure_count, table_count

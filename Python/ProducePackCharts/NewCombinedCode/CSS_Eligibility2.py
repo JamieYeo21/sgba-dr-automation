@@ -11,15 +11,20 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
 
-# Add the adjacent folder to sys.path
-folder_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'Utility'))
-sys.path.append(folder_path)
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Navigate to the Utility folder relative to the script
+utility_path = os.path.join(script_dir, 'Utility')
+
+# Add it to sys.path so that python can import from it
+sys.path.append(utility_path)
 
 # Now you can import your functions
 from Utility.functions import chop_df, get_excel_path
 from Utility.MakeCurlyBrace import curlyBrace
 
-def create_CSS_Eligibility2(type, figure_count, colours, parital_output_path, data_label_font_dict_white, data_label_font_dict_black, brace_label_font_dict):
+def create_CSS_Eligibility2(type, figure_count, colours, paths_variables, data_label_font_dict_white, data_label_font_dict_black, brace_label_font_dict):
     ###########
     # Main script Notifications
     if type==0:
@@ -34,8 +39,10 @@ def create_CSS_Eligibility2(type, figure_count, colours, parital_output_path, da
     # CREATING THE DF
     ###########
     # Accessing the folder which stores the MI tables
-    folder_path = 'Q:\\BSP\\Automation\\DR Automation\\Excel_inputs\\[PUT MI TABLES HERE]'
-    MI_tables_path = get_excel_path(folder_path)
+
+    MI_tables_path = paths_variables['MI_tables_path']
+    partial_output_path= paths_variables['partial_output_path']
+
 
     # Accessing and transforming Combined_2
     CSS_1 = pd.read_excel(MI_tables_path, sheet_name='CSS_1')
@@ -169,11 +176,12 @@ def create_CSS_Eligibility2(type, figure_count, colours, parital_output_path, da
     ##########
     # Save the plot as SVG file
     if type==0:
-        output_path = f'{parital_output_path}Figure{figure_count}.svg'
+        output_filename = f"Figure{figure_count}.svg"
+        output_path = os.path.join(partial_output_path, output_filename)
 
     if type==1:
-        output_path = f'{parital_output_path}Accessible_Figure{figure_count}.svg' 
-
+        output_filename = f"Accessible_Figure{figure_count}.svg"
+        output_path = os.path.join(partial_output_path, output_filename)
     plt.xticks(rotation=0)
     plt.tight_layout()
     plt.savefig(output_path)

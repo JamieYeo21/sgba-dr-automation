@@ -8,9 +8,11 @@ Author: Harry Simmons
 from docx import Document
 from docx.enum.text import WD_COLOR_INDEX
 from docx.shared import Pt, Cm, RGBColor
+import os
 
 
-def Social_section_writer(DR, figure_count):
+def Social_section_writer(DR, figure_count, paths_variables):
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
     paragraph = DR.add_paragraph(style = 'Heading 1')
     run = paragraph.add_run('[ADD SOCIAL SECTION HERE]')
     run.font.highlight_color = WD_COLOR_INDEX.YELLOW
@@ -34,7 +36,7 @@ def Social_section_writer(DR, figure_count):
     run.bold = True
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
     
 
@@ -55,5 +57,5 @@ def Social_section_writer(DR, figure_count):
     run.bold = True
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1

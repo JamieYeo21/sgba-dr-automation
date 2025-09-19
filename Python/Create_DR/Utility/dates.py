@@ -9,7 +9,9 @@ import re
 import pandas as pd
 import calendar as cal
 from datetime import datetime
-from Utility.functions import get_excel_path
+from Utility.functions import get_excel_path, create_paths
+
+paths_variables = create_paths()
 
 # Function to create end of next quarter in words
 def calculate_end_of_quarter_word(month, year):
@@ -99,9 +101,8 @@ def extract_month_year(sheet_name, file_path):
 def sort_dates():
     print('Handling Dates')
     # Accessing the folder which stores the MI tables
-    folder_path = 'Q:\\BSP\\Automation\\DR Automation\\Excel_inputs\\[PUT MI TABLES HERE]'
-    MI_tables_path = get_excel_path(folder_path)
-
+    MI_tables_path = paths_variables['MI_tables_path']
+    
     # Pull through the info about the next release date
     cover = pd.read_excel(MI_tables_path, sheet_name='Cover')
     publishing_cell_0 = cover.iloc[5,0]
@@ -173,8 +174,3 @@ def sort_dates():
 
     print('DONE!')
     return dates_variables
-
-def hyperlink_convert(this_month):
-    hyperlink_month = this_month.lower().replace(" ", "-")
-    return hyperlink_month
-

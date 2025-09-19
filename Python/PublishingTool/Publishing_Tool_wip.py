@@ -102,8 +102,20 @@ def word_to_md(input_folder, output_folder):
     # Dispose resources
     document.Dispose()        
 
+# Get the current user's home directory (e.g., D:\Users\your.username)
+home_dir = os.path.expanduser("~")
 
-word_to_md('Q:\\BSP\Automation\\DR Automation\\Excel_inputs\\[PUT DR HERE]',
-    'Q:\\BSP\Automation\\DR Automation\\DR_outputs\\DR_markdown')
+# Build the path to the MD output folder
+output_folder = os.path.join(home_dir, "GitHub", "sgba-DR-automation", "DR_outputs", "DR_markdown")
+
+# Build the path to the DR document
+input_folder = os.path.join(home_dir,"GitHub", "sgba-DR-automation", "Excel_inputs", "[PUT DR HERE]")
+
+# Ensure the directories exist
+os.makedirs(output_folder, exist_ok=True)
+os.makedirs(input_folder, exist_ok=True)
+
+word_to_md(input_folder,
+    output_folder)
 
 print('DONE!')

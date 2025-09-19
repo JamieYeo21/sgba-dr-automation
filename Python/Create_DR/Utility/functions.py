@@ -229,3 +229,37 @@ def add_hyperlink(paragraph, text, url):
 
     # Append the hyperlink and return it
     paragraph._element.append(hyperlink)
+
+
+#function to create the paths to important directories on the user's local machine
+def create_paths():
+    home_dir = os.path.expanduser("~")
+
+    # Build the path to the graph output folder
+    figure_path = os.path.join(home_dir, "GitHub", "sgba-DR-automation", "DR_outputs", "DR_graphs")
+
+    previous_MI_folder = os.path.join(home_dir,  "GitHub", "sgba-DR-automation", "Excel_inputs","[PUT MI TABLES HERE]", "[LAST MONTHS MI TABLES]")    
+    previous_tables_path = get_excel_path(previous_MI_folder)
+
+    MI_folder = os.path.join(home_dir,  "GitHub", "sgba-DR-automation", "Excel_inputs","[PUT MI TABLES HERE]")    
+    MI_tables_path = get_excel_path(MI_folder)
+
+    additional_folder = os.path.join(home_dir,  "GitHub", "sgba-DR-automation", "Excel_inputs","[PUT ADDITIONAL DR STATS HERE]")
+    print(additional_folder)
+    additional_tables_path = get_excel_path(additional_folder)
+
+    save_path = os.path.join(home_dir, "GitHub", "sgba-dr-automation", "DR_outputs", "Auto_DR")
+
+    paths = {'figure_path' : figure_path,
+             'previous_tables_path' : previous_tables_path,
+             'MI_tables_path' : MI_tables_path,
+             'additional_tables_path' : additional_tables_path,
+             'save_path' : save_path
+    }
+    return paths
+
+
+
+
+
+

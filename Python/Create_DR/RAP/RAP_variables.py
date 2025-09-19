@@ -9,9 +9,13 @@ import pandas as pd
 import os
 import sys
 
-# Add the Utility folder to sys.path
-folder_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'Utility'))
-sys.path.append(folder_path)
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate to the Utility folder relative to the script
+utility_path = os.path.join(script_dir, 'Utility')
+# Add it to sys.path so that python can import from it
+sys.path.append(utility_path)
+
 
 from RAP.RAP_data_handler import RAP_retrieve_data
 from Utility.functions import format_percentage
