@@ -26,7 +26,7 @@ sys.path.append(utility_path)
 # Now you can import your functions
 from Utility.functions import chop_df, get_excel_path
 
-def create_Overall_Remediation_over_time2(type, figure_count, colours, partial_output_path, MI_folder_path, data_label_font_dict_white, data_label_font_dict_black):
+def create_Overall_Remediation_over_time2(type, figure_count, colours, paths_variables, data_label_font_dict_white, data_label_font_dict_black):
     if type==0:
         text = f'Figure{figure_count}_Overall_remediation_over_time2'
         print(text)
@@ -36,8 +36,8 @@ def create_Overall_Remediation_over_time2(type, figure_count, colours, partial_o
         print(text)
 
     # Accessing the folder which stores the MI tables
-    MI_folder_path = MI_folder_path
-    MI_tables_path = get_excel_path(MI_folder_path)
+    MI_tables_path = paths_variables['MI_tables_path']
+    partial_output_path = paths_variables['partial_output_path']
 
     # Pull through title
     cover = pd.read_excel(MI_tables_path, sheet_name='Cover')

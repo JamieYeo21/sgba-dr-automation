@@ -22,8 +22,10 @@ from Portfolio.Portfolio_variables import Portfolio_variable_creator
 from Utility.functions import Change_line_in_DR, format_percentage, create_table
 import Utility.docx_svg_patch
 
-def Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_count, table_count, dates_variables, DR):
+def Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_count, table_count, dates_variables, paths_variables, DR):
     # Unpacking date variables
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
+    
     cutoff = dates_variables['cutoff']
     last_month = dates_variables['last_month']
     year = dates_variables['year']
@@ -66,7 +68,7 @@ def Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_co
     run.bold = True
 
     # Figure 
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
 
@@ -137,7 +139,7 @@ def Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_co
     run.bold = True
     
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Heading
@@ -151,7 +153,7 @@ def Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_co
     
 
     # Figure 4
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Heading
@@ -164,7 +166,7 @@ def Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_co
     run.bold = True
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Figure caption

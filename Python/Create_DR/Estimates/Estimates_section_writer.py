@@ -19,14 +19,14 @@ sys.path.append(folder_path)
 
 from Estimates.Estimates_variables import Estimates_variable_creator
 from Utility.functions import Change_line_in_DR, format_percentage, make_text_bold, create_table, create_bullet_points_forecast, add_hyperlink
-from Utility.dates import sort_dates, hyperlink_convert
+from Utility.dates import sort_dates
 import Utility.docx_svg_patch
 
 # Estimates section writer
 def Estimates_section_writer(Estimates_section_dict, Estimates_tables, table_count, dates_variables, DR):
     cutoff = dates_variables['cutoff']
     this_month = dates_variables['this_month']
-    hyperlink_month = hyperlink_convert(this_month)
+    hyperlink_month = dates_variables['hyperlink_month']
     
     Estimates_tables_number_of_buildings = Estimates_tables['Estimates_tables_number_of_buildings']
     Estimates_tables_proportion_of_buildings = Estimates_tables['Estimates_tables_proportion_of_buildings']

@@ -12,11 +12,13 @@ This was done to:
 """
 
 import time
-
+import os 
 # Start the timer
 start_time = time.time()
 
 from Utility.dates import sort_dates
+from Utility.functions import create_paths
+
 from DR_infrastructure.DR_setup import setup_doc
 from DR_infrastructure.DR_start_infrastructure import DR_start
 from DR_infrastructure.DR_introduction import DR_introduction
@@ -70,14 +72,16 @@ def create_DR():
     figure_count = 1
     table_count = 1
     dates_variables = sort_dates()
-    Portfolio_handled_data = Portfolio_retrieve_data(dates_variables)
-    ACM_handled_data = ACM_retrieve_data(dates_variables)
-    BSF_handled_data = BSF_retrieve_data(dates_variables)
-    CSS_handled_data = CSS_retrieve_data(dates_variables)
-    Developer_handled_data_last_month = Developer_retrieve_data_last_month()
-    Developer_handled_data_this_month = Developer_retrieve_data_this_month()
-#    RAP_handled_data = RAP_retrieve_data(dates_variables)
-    Enforcement_handled_data = Enforcement_retrieve_data()
+    paths_variables = create_paths()
+
+    Portfolio_handled_data = Portfolio_retrieve_data(paths_variables)
+    ACM_handled_data = ACM_retrieve_data(dates_variables, paths_variables)
+    BSF_handled_data = BSF_retrieve_data(paths_variables)
+    CSS_handled_data = CSS_retrieve_data(paths_variables)
+    Developer_handled_data_last_month = Developer_retrieve_data_last_month(paths_variables)
+    Developer_handled_data_this_month = Developer_retrieve_data_this_month(paths_variables)
+#    RAP_handled_data = RAP_retrieve_data(paths_variables)
+    Enforcement_handled_data = Enforcement_retrieve_data(paths_variables)
 
     # Format variables
     print('Formatting Variables')
@@ -95,7 +99,7 @@ def create_DR():
     print('Writing Data Release')
     DR = setup_doc()
     DR_start(dates_variables, DR)
-    figure_count = Portfolio_headline_writer(Portfolio_headline_dict, Estimates_headline_dict, figure_count, dates_variables, DR)
+    figure_count = Portfolio_headline_writer(Portfolio_headline_dict, Estimates_headline_dict, figure_count, dates_variables, paths_variables, DR)
     ACM_headline_writer(ACM_headline_dict, dates_variables, DR)
     BSF_headline_writer(BSF_headline_dict, dates_variables, DR)
     CSS_headline_writer(CSS_headline_dict, dates_variables, DR)
@@ -106,21 +110,25 @@ def create_DR():
     DR_enquiries(dates_variables, DR)
     DR_building_safety_overview(DR)
     table_count = Estimates_section_writer(Estimates_section_dict, Estimates_tables, table_count, dates_variables, DR)
-    figure_count, table_count= Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_count, table_count, dates_variables, DR)
-    figure_count, table_count = ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, dates_variables, DR)
-    figure_count, table_count = BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, dates_variables, DR)
-    figure_count, table_count = CSS_section_writer(CSS_section_dict, CSS_tables, figure_count, table_count, dates_variables, DR)
-    figure_count, table_count = Developer_section_writer(Developer_section_dict, BSF_developer_transfers, Developer_tables, figure_count, table_count, dates_variables, DR)
+    figure_count, table_count= Portfolio_section_writer(Portfolio_section_dict, Portfolio_tables, figure_count, table_count, dates_variables, paths_variables, DR)
+    figure_count, table_count = ACM_section_writer(ACM_section_dict, ACM_tables, figure_count, table_count, dates_variables, paths_variables, DR)
+    figure_count, table_count = BSF_section_writer(BSF_section_dict, BSF_tables, figure_count, table_count, dates_variables, paths_variables, DR)
+    figure_count, table_count = CSS_section_writer(CSS_section_dict, CSS_tables, figure_count, table_count, dates_variables, paths_variables, DR)
+    figure_count, table_count = Developer_section_writer(Developer_section_dict, BSF_developer_transfers, Developer_tables, figure_count, table_count, dates_variables, paths_variables, DR)
 #    figure_count = RAP_section_writer(RAP_section_dict,figure_count, dates_variables, DR)
-    figure_count = Social_section_writer(DR, figure_count)
+    figure_count = Social_section_writer(DR, figure_count,paths_variables)
     Enforcement_section_writer(Enforcement_section_dict, dates_variables, DR)
     DR_end(DR, dates_variables)
     print('DONE!')
 
     # Saving the document
     this_month = dates_variables['this_month']
-    save_path = f'Q:\\BSP\\Automation\\DR Automation\\DR_outputs\\Auto_DR\\Building Safety Release {this_month}.docx'
-    DR.save(save_path)
+    save_path = paths_variables['save_path']
+
+    output_path = os.path.join(save_path, f'Building Safety Release {this_month}.docx')
+    DR.save(output_path)
+
+
 
 # Call the main function
 if __name__ == "__main__":

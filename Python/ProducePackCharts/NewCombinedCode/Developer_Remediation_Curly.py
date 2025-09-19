@@ -25,7 +25,7 @@ sys.path.append(utility_path)
 from Utility.functions import chop_df, get_excel_path
 from Utility.MakeCurlyBrace import curlyBrace
 
-def create_Developer_Remediation_Curly(type, figure_count, colours, grey, partial_output_path, MI_folder_path, data_label_font_dict_white, data_label_font_dict_black, brace_label_font_dict):
+def create_Developer_Remediation_Curly(type, figure_count, colours, grey, paths_variables, data_label_font_dict_white, data_label_font_dict_black, brace_label_font_dict):
     ###########
     # Main script Notifications
     if type==0:
@@ -40,8 +40,10 @@ def create_Developer_Remediation_Curly(type, figure_count, colours, grey, partia
     # CREATING THE DF
     ###########
     # Accessing the folder which stores the MI tables
-    MI_folder_path = MI_folder_path
-    MI_tables_path = get_excel_path(MI_folder_path)
+
+    MI_tables_path = paths_variables['MI_tables_path']
+    partial_output_path= paths_variables['partial_output_path']
+
 
     # Accessing and transforming Combined_2
     Developer_1 = pd.read_excel(MI_tables_path, sheet_name='Developer_1')

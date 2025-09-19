@@ -23,7 +23,7 @@ sys.path.append(utility_path)
 # Now you can import your functions
 from Utility.functions import chop_df, get_excel_path
 
-def create_Overall_Height(type, figure_count, colours, partial_output_path, MI_folder_path, data_label_font_dict_white, data_label_font_dict_black):
+def create_Overall_Height(type, figure_count, colours, paths_variables, data_label_font_dict_white, data_label_font_dict_black):
     ###########
     # Main script Notifications
     if type==0:
@@ -40,8 +40,10 @@ def create_Overall_Height(type, figure_count, colours, partial_output_path, MI_f
     # CREATING THE DF
     ###########
     # Accessing the folder which stores the MI tables
-    MI_folder_path = MI_folder_path
-    MI_tables_path = get_excel_path(MI_folder_path)
+
+    MI_tables_path = paths_variables['MI_tables_path']
+    partial_output_path= paths_variables['partial_output_path']
+
 
     # Accessing and transforming Combined_2
     Combined_2 = pd.read_excel(MI_tables_path, sheet_name='Combined_2')

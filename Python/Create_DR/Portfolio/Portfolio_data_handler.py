@@ -8,19 +8,13 @@ Author: Harry Simmons
 import pandas as pd
 import sys
 import os
-
-# Add the adjacent folder to sys.path
-folder_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'Utility'))
-sys.path.append(folder_path)
-
 from Utility.functions import chop_df, get_excel_path, format_percentage
-from Utility.dates import sort_dates
 
-def Portfolio_retrieve_data(date_variables):
+
+def Portfolio_retrieve_data(paths_variables):
     print('Handling Portfolio Data')
     # Accessing the folder which stores the MI tables
-    folder_path = 'Q:\\BSP\\Automation\\DR Automation\\Excel_inputs\\[PUT MI TABLES HERE]'
-    MI_tables_path = get_excel_path(folder_path)
+    MI_tables_path = paths_variables['MI_tables_path']
 
     # Accessing and transforming Combined_2
     Combined_2 = pd.read_excel(MI_tables_path, sheet_name='Combined_2')

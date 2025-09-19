@@ -9,23 +9,25 @@ import pandas as pd
 import sys
 import os
 
-# Add the adjacent folder to sys.path
-folder_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'Utility'))
-sys.path.append(folder_path)
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate to the Utility folder relative to the script
+utility_path = os.path.join(script_dir, 'Utility')
+# Add it to sys.path so that python can import from it
+sys.path.append(utility_path)
+
 
 # Now you can import your functions
 from Utility.functions import format_percentage, chop_df, get_excel_path
 from Utility.dates import sort_dates
 
-def BSF_retrieve_data(dates_variables):
+def BSF_retrieve_data(paths_variables):
     print('Handing BSF Data')
     # Accessing the folder which stores the MI tables
-    folder_path = 'Q:\\BSP\\Automation\\DR Automation\\Excel_inputs\\[PUT MI TABLES HERE]'
-    MI_tables_path = get_excel_path(folder_path)
+    MI_tables_path = paths_variables['MI_tables_path']
 
     # Accessing the folder which stores the additional stats
-    folder_path = 'Q:\\BSP\Automation\\DR Automation\\Excel_inputs\\[PUT ADDITIONAL DR STATS HERE]'
-    additional_path = get_excel_path(folder_path)
+    additional_tables_path = paths_variables['additional_tables_path']
 
     # Accessing and transforming BSF_1
     BSF_1 = pd.read_excel(MI_tables_path, sheet_name='BSF_1')
@@ -60,8 +62,8 @@ def BSF_retrieve_data(dates_variables):
     BSF_handled_data = {
         'BSF_1': BSF_1,
         'BSF_5': BSF_5,
-        'BSF_reg_status': pd.read_excel(additional_path, sheet_name='BSF_reg_status'),
-        'BSF_misc': pd.read_excel(additional_path, sheet_name='BSF_misc'),
+        'BSF_reg_status': pd.read_excel(additional_tables_path, sheet_name='BSF_reg_status'),
+        'BSF_misc': pd.read_excel(additional_tables_path, sheet_name='BSF_misc'),
     }  
 
     print('DONE!')

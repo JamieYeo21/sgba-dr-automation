@@ -24,7 +24,7 @@ sys.path.append(utility_path)
 from Utility.functions import chop_df, get_excel_path
 from Utility.MakeCurlyBrace import curlyBrace
 
-def create_BSF_Tenure(type, figure_count, colours, partial_output_path, MI_folder_path, data_label_font_dict_white, data_label_font_dict_black, brace_label_font_dict):
+def create_BSF_Tenure(type, figure_count, colours, paths_variables, data_label_font_dict_white, data_label_font_dict_black, brace_label_font_dict):
     ###########
     # Main script Notifications
     if type==0:
@@ -39,8 +39,10 @@ def create_BSF_Tenure(type, figure_count, colours, partial_output_path, MI_folde
     # CREATING THE DF
     ###########
     # Accessing the folder which stores the MI tables
-    MI_folder_path = MI_folder_path
-    MI_tables_path = get_excel_path(MI_folder_path)
+
+    MI_tables_path = paths_variables['MI_tables_path']
+    partial_output_path= paths_variables['partial_output_path']
+
 
     # Accessing and transforming Combined_2
     BSF_1 = pd.read_excel(MI_tables_path, sheet_name='BSF_1')

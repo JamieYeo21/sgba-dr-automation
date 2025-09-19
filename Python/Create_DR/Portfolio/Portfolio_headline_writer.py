@@ -20,16 +20,15 @@ sys.path.append(folder_path)
 
 from Portfolio.Portfolio_variables import Portfolio_variable_creator
 from Utility.functions import Change_line_in_DR, format_percentage, create_table, add_hyperlink
-from Utility.dates import hyperlink_convert
 import Utility.docx_svg_patch
 
-def Portfolio_headline_writer(Portfolio_headline_dict, Estimates_headline_dict, figure_count, dates_variables, DR):
+def Portfolio_headline_writer(Portfolio_headline_dict, Estimates_headline_dict, figure_count, dates_variables, paths_variables, DR):
     last_month = dates_variables['last_month']
     this_month = dates_variables['this_month']
     
-    year = dates_variables['year']
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
     last_month_year = dates_variables['last_month_year']
-    hyperlink_month = hyperlink_convert(this_month)
+    hyperlink_month = dates_variables['hyperlink_month']
 
 
     Portfolio_total = Portfolio_headline_dict['Portfolio_total']
@@ -69,7 +68,7 @@ def Portfolio_headline_writer(Portfolio_headline_dict, Estimates_headline_dict, 
   
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Figure caption

@@ -22,8 +22,10 @@ from Utility.functions import Change_line_in_DR, format_percentage, make_text_bo
 from Utility.dates import sort_dates
 
 # Developer section writer
-def Developer_section_writer(Developer_section_dict, BSF_developer_transfers, Developer_tables, figure_count, table_count, dates_variables, DR):
+def Developer_section_writer(Developer_section_dict, BSF_developer_transfers, Developer_tables, figure_count, table_count, dates_variables, paths_variables, DR):
     # Unpacking Dates variables
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
+    
     cutoff = dates_variables['cutoff']
     last_month = dates_variables['last_month']
     this_month = dates_variables['this_month']
@@ -167,7 +169,7 @@ def Developer_section_writer(Developer_section_dict, BSF_developer_transfers, De
     
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Table caption
@@ -300,7 +302,7 @@ def Developer_section_writer(Developer_section_dict, BSF_developer_transfers, De
     
 
     # Figure
-    DR.add_picture(f'Q:\BSP\Automation\DR Automation\DR_outputs\DR_graphs\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
     
     # Heading

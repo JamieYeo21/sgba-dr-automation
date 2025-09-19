@@ -23,7 +23,7 @@ from Utility.functions import format_percentage, add_hyperlink
 import Utility.docx_svg_patch
 
 
-def RAP_section_writer(RAP_section_dict,figure_count, dates_variables, DR):
+def RAP_section_writer(RAP_section_dict,figure_count, dates_variables, paths_variables, DR):
 #    class Namespace:
 #        def __init__(self, **kwargs):
 #            self.__dict__.update(kwargs)
@@ -36,6 +36,7 @@ def RAP_section_writer(RAP_section_dict,figure_count, dates_variables, DR):
     dev_cutoff = dates_variables['dev_cutoff']
     cutoff = dates_variables['cutoff']
     this_quarter = dates_variables['end_quarter_word']
+    figure_path = os.path.join(paths_variables['figure_path'], f'Figure{figure_count}.svg')
 
     RAP_18m_complete_no = RAP_section_dict['RAP_18m_complete_no']
     RAP_18m_underway_no = RAP_section_dict['RAP_18m_underway_no']
@@ -90,7 +91,7 @@ def RAP_section_writer(RAP_section_dict,figure_count, dates_variables, DR):
     run.bold = True
     
     # Figure
-    DR.add_picture(f'Q:\\BSP\\Automation\\DR Automation\\DR_outputs\\DR_graphs\\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Paragraph 4
@@ -113,7 +114,7 @@ def RAP_section_writer(RAP_section_dict,figure_count, dates_variables, DR):
     run.bold = True
     
     # Figure
-    DR.add_picture(f'Q:\\BSP\\Automation\\DR Automation\\DR_outputs\\DR_graphs\\Figure{figure_count}.svg', width=Cm(17))
+    DR.add_picture(figure_path, width=Cm(17))
     figure_count += 1
 
     # Heading 
